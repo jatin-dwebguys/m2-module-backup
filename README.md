@@ -1,8 +1,7 @@
 # Itonomy - Backup module
 
-[![Software License][ico-license]](LICENSE.md)
 [![Build Status](https://travis-ci.org/Itonomy/module-backup.svg?branch=master)](https://travis-ci.org/Itonomy/module-backup)
-[![Coverage Status][ico-coverall]][link-coveralls]
+[![Coverage Status](https://coveralls.io/repos/github/Itonomy/module-backup/badge.svg)](https://coveralls.io/github/Itonomy/module-backup)
 
 A backup module for Magento 2.x which supports cleaning and compress backup features.
 
