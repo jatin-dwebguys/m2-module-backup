@@ -8,7 +8,7 @@ BUILD_DIR="/tmp/magento2"
 
 if [ -z $TRAVIS_BUILD_DIR ]; then TRAVIS_BUILD_DIR=`pwd`; fi
 if [ -z $TRAVIS_COMMIT ]; then TRAVIS_COMMIT=`git rev-parse HEAD`; fi
-if [ -z $MAGENTO_VERSION ]; then MAGENTO_VERSION="2.1.3"; fi
+if [ -z $MAGENTO_VERSION ]; then MAGENTO_VERSION="2.2.5"; fi
 if [ -z $MAGENTO_DB_HOST ]; then MAGENTO_DB_HOST="localhost"; fi
 if [ -z $MAGENTO_DB_PORT ]; then MAGENTO_DB_PORT="3306"; fi
 if [ -z $MAGENTO_DB_USER ]; then MAGENTO_DB_USER="root"; fi
@@ -40,11 +40,11 @@ find src/Test/Fixtures -type f -print0 | xargs -0 -n 1 sed -i -e "s/MAGENTO_DB_N
 cp -v src/Test/Fixtures/env.php "${BUILD_DIR}/app/etc/env.php"
 cp -v src/Test/Fixtures/config.php "${BUILD_DIR}/app/etc/config.php"
 cp -v src/Test/Fixtures/install-config-mysql.php "${BUILD_DIR}/dev/tests/integration/etc/install-config-mysql.php"
-#cp -v src/Test/Fixtures/phpunit.xml "${BUILD_DIR}/dev/tests/integration/phpunit.xml"
+cp -v src/Test/Fixtures/phpunit.xml "${BUILD_DIR}/dev/tests/integration/phpunit.xml"
 
 zip --exclude=node_modules/* --exclude=vendor/* --exclude=.git/* -r build.zip src composer.json
 
-REPOSITORY_CONFIG="{\"type\": \"package\",\"package\": { \"name\": \"itonomy/module-backup\", \"version\": \"master\", \"dist\": {\"type\": \"zip\",\"url\": \"${TRAVIS_BUILD_DIR}/build.zip\",\"reference\": \"master\" }, \"autoload\": {\"files\": [\"src/registration.php\"],\"psr-4\": {\"Itonomy\\\\Backup\\\\\": \"\"}}}}"
+REPOSITORY_CONFIG="{\"type\": \"package\",\"package\": { \"name\": \"itonomy/module-backup\", \"version\": \"master\", \"dist\": {\"type\": \"zip\",\"url\": \"${TRAVIS_BUILD_DIR}/build.zip\",\"reference\": \"master\" }, \"autoload\": {\"files\": [\"src/registration.php\"],\"psr-4\": {\"Itonomy\\\\Backup\\\\\": \"src/\"}}}}"
 
 if [ -d "$HOME/.cache/composer/files/itonomy/" ]; then
     rm -rf $HOME/.cache/composer/files/itonomy/;
@@ -55,7 +55,7 @@ fi
 ( cd "${BUILD_DIR}/" && composer require itonomy/module-backup --ignore-platform-reqs )
 
 mysql -u${MAGENTO_DB_USER} ${MYSQLPASS} -h${MAGENTO_DB_HOST} -P${MAGENTO_DB_PORT} -e "DROP DATABASE IF EXISTS \`${MAGENTO_DB_NAME}\`; CREATE DATABASE \`${MAGENTO_DB_NAME}\`;"
-#mysql -u${MAGENTO_DB_USER} ${MYSQLPASS} -h${MAGENTO_DB_HOST} -P${MAGENTO_DB_PORT} ${MAGENTO_DB_NAME} < Test/Fixtures/fixtures.sql
+mysql -u${MAGENTO_DB_USER} ${MYSQLPASS} -h${MAGENTO_DB_HOST} -P${MAGENTO_DB_PORT} ${MAGENTO_DB_NAME} < src/Test/Fixtures/fixture.sql
 
 chmod 777 "${BUILD_DIR}/var/"
 chmod 777 "${BUILD_DIR}/pub/"
