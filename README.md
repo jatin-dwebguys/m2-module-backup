@@ -33,6 +33,12 @@ Contribution
 ------------
 Any contribution is highly appreciated. The best way to contribute code is to open a [pull request on GitHub](https://help.github.com/articles/using-pull-requests).
 
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+
 Copyright
 ---------
 Copyright (c) 2018 Itonomy B.V.

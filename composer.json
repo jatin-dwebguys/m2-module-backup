@@ -1,0 +1,25 @@
+{
+    "name": "itonomy/module-backup",
+    "description": "Magento - Backup extensions",
+    "license": [
+        "MIT"
+    ],
+    "authors": [{
+        "name": "Armando Meeuwenoord",
+        "email": "armando.meeuwenoord@itonomy.nl",
+        "homepage": "http://www.itonomy.nl"
+    }],
+    "type": "magento2-module",
+    "support": {
+        "documentation": "http://docs.itonomy.nl"
+    },
+
+    "autoload": {
+        "files": [
+            "src/registration.php"
+        ],
+        "psr-4": {
+            "Itonomy\\Backup\\": "src/"
+        }
+    }
+}
