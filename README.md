@@ -1,5 +1,7 @@
 # Itonomy - Backup module
 
+[![Total Downloads](https://img.shields.io/packagist/dt/itonomy/module-backup.svg)](https://packagist.org/packages/itonomy/module-backup)
+[![Latest Version](https://img.shields.io/packagist/v/itonomy/module-backup.svg)](https://github.com/itonomy/module-backup/releases)
 [![Build Status](https://travis-ci.org/Itonomy/module-backup.svg?branch=master)](https://travis-ci.org/Itonomy/module-backup)
 [![Coverage Status](https://coveralls.io/repos/github/Itonomy/module-backup/badge.svg)](https://coveralls.io/github/Itonomy/module-backup)
 
