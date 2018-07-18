@@ -1,41 +1,53 @@
+sudo: required
 dist: trusty
+addons:
+  apt:
+    packages:
+    - mysql-server-5.6
+    - mysql-client-core-5.6
+    - mysql-client-5.6
+
 language: php
 
-sudo: false
-
-php:
-    - 7.0
-    - 7.1
+php: 7.0
 
 env:
-    global:
-        - secure: "DCvVwJnoZXUdbZpHD77EyL002dFJsTxE0WgcslY09mkffhWFTjc3pRKdUb25prAhwbkAJo5Pb6FS6GfqJmEJAs0R5mFBdvif0y9TCvrhy+5kpbnnnUJuQfK6dZ6VOPGfqtvGm0MENDtndr5dhyGHbZ9DSz3WBZIuieLdr/HKOS6MVKO9iIFLVn5ttIbpauwbAdAnHdIoyUSW7qqnbTIJsou9Yw3HbpSwKK2LtecqXVUh0Yu6n3YwpNjOBjvQ724u1tw6B4iKNWn5TCZBrYEYKA/knefSgw99ptEQIznDg42TlBp2Knqc9jluwtjxrbVwwA/0+pzGJ6ZI/lQ74akk6Cn41sr91dSO5eEqR8iL27OALCxpO0z/avI3PxBAC/btbEGTDCwMSXtzpHJ216o+p5Cb21qaDKy8PORo9XE7elInQK22Se04VhLICySCJ49sOCYRiXUISCbZzbLzuapDz5SaEEKm3gxdsfkeSE6L8dseyvie+zVRaG1C9dqlpnD8x/UclNOsT2F5vCrrE1Sk76IG/QHdy5naVX/eYyQo+0uIeFL3sD4S340XgxaXscHE8Dx9i0YnFSIlbk0yLvdVpV9/oG7QSuOfoBN2Ex28UCOUAXXq9kYimt9yXjcGcGarQqOPh9rPgHi93OYlqMphlVga8sg+C00+PRtbLvrPxJY="
-        - secure: "sTmBL5CDHEmEmy7JSlbUmrM+EsT1m5iTsYUaScPAqYofn3T4vxyXQ3BlXsbOMrLxI33S+yoB54FWgOEa67nC4RTO20U6O3H9QjKOMdgMVTDmeoFohVOyOJSl3BXKPHOxTFf8/QPsz4sUziIftwObmFfrRD9nEPiMDF+YtI9TJW/tpEPiqjhYikz7OIPGD8d2z3RhHFHKdA41F66e0UZlPjR1+DNONiFy9xXHI4/rVDzlHQJFL1rVwPEMKDLznQRaz8DTl0+vqYCYdBwEZz3M6zekSpbFMUgdMSc8qLil+hVL7Rpgi1Rf4i7SRMKB0zI96gTwHFCD5c8cZgqKFx6I+hL7+0gQzCeoBG1Lm9KdtkzEBU4+boEOOkCy876xkOyP86J9HWfRxB7uQh6Ec2r4gSD9elTfiXiOZN+kwFhOHB6ypSq7qnFZ+YLo38SEAM2PysvE9sfOyohgg8eqccGBRiDgVWiSTguu3GekZxtSiUkvQUTkTmq2aHvNHEtD7pHKoCgNNn8PmOH+3ReMx+oQ7By2XJZlXCH7/vlhFhnxlPP++iLeFcpOu9tTRdzBKJ9TgL6PkDdpsmLFUAHKPl1KKugsWT+rYxYIlHvnc47CaH4210MfJKVKrNDDAL/jIpYG68IU3ecq+dkESsJHl6I3Y9HXlQdQD44MdmNz5hQrY4o="
-    matrix:
-        - TEST_SUITE=unit
-        - TEST_SUITE=static
+  global:
+    - CODE_COVERAGE=false
+
+# We have decided to only test the latest two of each major releases.
+  matrix:
+    - MAGENTO_VERSION=2.1.12
+    - MAGENTO_VERSION=2.1.13
+    - MAGENTO_VERSION=2.2.3
+    - MAGENTO_VERSION=2.2.4
+    - MAGENTO_VERSION=2.2.5
 
 matrix:
-    exclude:
-        - php: 7.0
-          env: TEST_SUITE=static
+# PHP 7.1 would be supported in Magento since Magento 2.2
+# And there wouldn't be support of PHP 7.1 in Magento 2.0 or 2.1
+  include:
+    - php: 7.1
+      env: MAGENTO_VERSION=2.2.4 CODE_COVERAGE=true
 
-cache:
-    directories:
-        - $HOME/.composer/cache
-
-install:
-    - sh -c "if [ '$TEST_SUITE' = 'unit' ]; then echo '{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}' > auth.json; fi"
-    - sh -c "if [ '$TEST_SUITE' = 'unit' ]; then composer install --prefer-dist; fi"
-    - sh -c "if [ '$TEST_SUITE' = 'static' ]; then npm install; fi"
+before_script:
+  - export PATH=$PATH:$HOME/.composer/vendor/bin
+  - composer config -a -g http-basic.repo.magento.com $MAGENTO_USERNAME $MAGENTO_PASSWORD
+  - bash scripts/dependencies.sh
+  - bash scripts/setup.sh
 
 script:
-    - sh -c "if [ '$TEST_SUITE' = 'unit' ]; then php vendor/bin/phpdoc run -d Block,Helper,Model,Observer -t build/doc; fi"
-    - sh -c "if [ '$TEST_SUITE' = 'unit' ]; then php vendor/bin/phpcs; fi"
-    - sh -c "if [ '$TEST_SUITE' = 'unit' ]; then php vendor/bin/phpmd src/Block/,src/Helper/,src/Model/,src/Observer/,tests/ text cleancode,codesize,controversial,design,naming,unusedcode; fi"
-    - sh -c "if [ '$TEST_SUITE' = 'unit' ]; then php vendor/bin/phpcpd src/Block/ src/Helper/ Model/ Observer/ Test/; fi"
-    - sh -c "if [ '$TEST_SUITE' = 'unit' ]; then php vendor/bin/phpunit --coverage-clover build/logs/clover.xml; fi"
-    - sh -c "if [ '$TEST_SUITE' = 'static' ]; then ./node_modules/.bin/grunt ci; fi"
+  - grunt phpcs
+  - grunt lint
+  - grunt exec:ciTests
+  - if [ "$CODE_COVERAGE" = "false" ]; then php /tmp/magento2/bin/magento setup:di:compile; fi # Check for compilation errors
 
-after_script:
-    - sh -c "if [ '$TEST_SUITE' = 'unit' ]; then php vendor/bin/coveralls; fi"
+after_success:
+  - bash scripts/AfterSuccess.sh
+
+cache:
+  directories:
+  - node_modules
+  - $HOME/.download_cache
+  - $HOME/.composer
+  - $HOME/.cache/composer

@@ -13,7 +13,18 @@
     "support": {
         "documentation": "http://docs.itonomy.nl"
     },
-
+    "repositories": [{
+        "type": "composer",
+        "url": "https://repo.magento.com/"
+    }],
+    "require": {
+        "php": "~7.0|~7.1",
+        "magento/framework": "~100.1.2|~101.0.0"
+    },
+    "require-dev": {
+        "php-coveralls/php-coveralls": "~2.1.0",
+        "magento/marketplace-eqp": "^1.0"
+    },
     "autoload": {
         "files": [
             "src/registration.php"

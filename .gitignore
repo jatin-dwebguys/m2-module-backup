@@ -1,1 +1,7 @@
+vendor/
+node_modules/
+Build/
+build
 .idea/
+composer.lock
+build.zip
