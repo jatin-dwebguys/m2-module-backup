@@ -42,7 +42,7 @@ cp -v src/Test/Fixtures/config.php "${BUILD_DIR}/app/etc/config.php"
 cp -v src/Test/Fixtures/install-config-mysql.php "${BUILD_DIR}/dev/tests/integration/etc/install-config-mysql.php"
 cp -v src/Test/Fixtures/phpunit.xml "${BUILD_DIR}/dev/tests/integration/phpunit.xml"
 
-zip --exclude=node_modules/* --exclude=vendor/* --exclude=.git/* -r .
+zip --exclude=node_modules/* --exclude=vendor/* --exclude=.git/* -r build.zip .
 
 REPOSITORY_CONFIG="{\"type\": \"package\",\"package\": { \"name\": \"itonomy/module-backup\", \"version\": \"master\", \"dist\": {\"type\": \"zip\",\"url\": \"${TRAVIS_BUILD_DIR}/build.zip\",\"reference\": \"master\" }, \"autoload\": {\"files\": [\"src/registration.php\"],\"psr-4\": {\"Itonomy\\\\Backup\\\\\": \"src/\"}}}}"
 
