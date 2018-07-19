@@ -38,9 +38,9 @@ abstract class TestCase extends TestCaseFinder
     public function setUp()
     {
         /** Require functions.php to be able to use the translate function */
-        $path = __DIR__ . '/../../../../app/functions.php';
+        $path = __DIR__ . '/../../../../../app/functions.php';
         if (strpos(__DIR__, 'vendor') === false) {
-            $path = __DIR__ . '/../../../../functions.php';
+            $path = __DIR__ . '/../../../../../functions.php';
         }
 
         require_once($path);
