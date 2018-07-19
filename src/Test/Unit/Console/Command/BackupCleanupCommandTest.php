@@ -15,7 +15,6 @@ class BackupCleanupCommandTest extends TestCase
 
     public function testExecute()
     {
-        $this->moduleList->expects($this->once())->method('getNames')->willReturn([]);
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);
 

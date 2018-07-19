@@ -37,7 +37,10 @@ find src/Test/Fixtures -type f -print0 | xargs -0 -n 1 sed -i -e "s/MAGENTO_DB_U
 find src/Test/Fixtures -type f -print0 | xargs -0 -n 1 sed -i -e "s/MAGENTO_DB_PASS/${MAGENTO_DB_PASS}/g"
 find src/Test/Fixtures -type f -print0 | xargs -0 -n 1 sed -i -e "s/MAGENTO_DB_NAME/${MAGENTO_DB_NAME}/g"
 
-cp -v src/Test/Fixtures/env.php "${BUILD_DIR}/app/etc/env.php"
+if [ ! -f "${BUILD_DIR}/app/etc/env.php" ]; then
+    cp -v src/Test/Fixtures/env.php "${BUILD_DIR}/app/etc/env.php"
+fi
+
 cp -v src/Test/Fixtures/config.php "${BUILD_DIR}/app/etc/config.php"
 cp -v src/Test/Fixtures/install-config-mysql.php "${BUILD_DIR}/dev/tests/integration/etc/install-config-mysql.php"
 cp -v src/Test/Fixtures/phpunit.xml "${BUILD_DIR}/dev/tests/integration/phpunit.xml"
