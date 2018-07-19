@@ -1,6 +1,6 @@
 <?php
 
-namespace Itonomny\Backup\Test;
+namespace Itonomy\Backup\Test;
 
 class TestCaseFinder extends \PHPUnit\Framework\TestCase
 {
