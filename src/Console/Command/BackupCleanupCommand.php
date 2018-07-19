@@ -12,7 +12,7 @@ class BackupCleanupCommand extends Command
     /**
      * @var BackupProcessor
      */
-    protected $_backupProcessor;
+    private $backupProcessor;
 
     /**
      * BackupCleanupCommand constructor.
@@ -21,7 +21,7 @@ class BackupCleanupCommand extends Command
     public function __construct(
         BackupProcessor $backupProcessor
     ) {
-        $this->_backupProcessor = $backupProcessor;
+        $this->backupProcessor = $backupProcessor;
 
         parent::__construct();
     }
@@ -43,7 +43,7 @@ class BackupCleanupCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            $oldFiles = $this->_backupProcessor->cleanupBackups($output);
+            $oldFiles = $this->backupProcessor->cleanupBackups($output);
 
             $table = $this->getHelperSet()->get('table');
             $table->setHeaders(['Backup Filename', 'Backup Type']);
@@ -55,7 +55,6 @@ class BackupCleanupCommand extends Command
                 }
                 $table->render($output);
             }
-
         } catch (\Exception $e) {
             $output->writeln($e->getMessage());
         }

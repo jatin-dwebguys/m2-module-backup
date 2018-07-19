@@ -12,7 +12,7 @@ class BackupCompressCommand extends Command
     /**
      * @var BackupProcessor
      */
-    protected $backupProcessor;
+    private $backupProcessor;
 
     /**
      * BackupCleanupCommand constructor.

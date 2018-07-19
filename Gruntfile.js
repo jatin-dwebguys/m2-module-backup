@@ -16,14 +16,14 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         exec: {
-            phpcs: phpcsCommand + '--standard=phpcs.xml  .',
-            phpcsTest: phpcsCommand + '--standard=phpcs.test.xml --severity=10 Test',
+            phpcs: phpcsCommand + '--standard=phpcs.xml  src/',
+            phpcsTest: phpcsCommand + '--standard=phpcs.test.xml --severity=10 src/Test',
 
             unitTests: 'cd ' + magento2path + ' && vendor/phpunit/phpunit/phpunit -c "' + phpunitXmlPath + '"',
 
             integrationTests:
                 'cd ' + magento2path + 'dev/tests/integration &&' +
-                'php -ddisplay_errors=1 ../../../vendor/phpunit/phpunit/phpunit --testsuite "Magento2 Tests"',
+                'php -ddisplay_errors=1 ../../../vendor/phpunit/phpunit/phpunit --testsuite "Magento2 Unit Tests"',
 
             ciTests:
                 'cd ' + magento2path + 'dev/tests/integration &&' +

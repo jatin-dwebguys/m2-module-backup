@@ -147,7 +147,6 @@ class BackupProcessor
                     if (in_array(Factory::TYPE_DB, $fileNameParts) && $nameWithoutExtension[1] !== '.sql.gz') {
                         $this->gzCompressFile($backupsDir.'/'.$fileName, 7);
                         $files[$fileName] = $backupsDir.'/'.$fileName.".gz";
-
                     }
                 }
             }
@@ -238,7 +237,7 @@ class BackupProcessor
      */
     protected function writeLog($message, $output = null)
     {
-        if (!is_null($output) && $output instanceof OutputInterface) {
+        if ($output === null && $output instanceof OutputInterface) {
             $output->writeln($message);
         }
 

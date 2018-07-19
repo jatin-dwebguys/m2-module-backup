@@ -13,11 +13,11 @@ class BackupCleanup
      *
      * @var array
      */
-    protected $_errors = [];
+    protected $errors = [];
 
     /**
      * BackupCleanup constructor.
-     * @param \Itonomy\Backup\Model\Processor\CleanBackups $processor
+     * @param \Itonomy\Backup\Model\BackupProcessor $processor
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
@@ -40,12 +40,12 @@ class BackupCleanup
             return $this;
         }
 
-        $this->_errors = [];
+        $this->errors = [];
         try {
             $this->cleanBackups->cleanupBackups();
         } catch (\Exception $e) {
-            $this->_errors[] = $e->getMessage();
-            $this->_errors[] = $e->getTrace();
+            $this->errors[] = $e->getMessage();
+            $this->errors[] = $e->getTrace();
             throw $e;
         }
 
