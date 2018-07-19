@@ -3,7 +3,7 @@
 return [
     'db-host' => 'localhost',
     'db-user' => 'root',
-    'db-password' => 'root',
+    'db-password' => '',
     'db-name' => 'magento',
     'db-prefix' => '',
     'backend-frontname' => 'admin',

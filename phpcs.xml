@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Itonomy_Backup">
+    <description>Coding Standard</description>
+
+    <config name="installed_paths" value="vendor/squizlabs/php_codesniffer/CodeSniffer/Standards,vendor/magento/marketplace-eqp"/>
+
+    <rule ref="PSR2"/>
+    <rule ref="MEQP2"/>
+
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/Test/*</exclude-pattern>
+
+    <extension>php</extension>
+</ruleset>
