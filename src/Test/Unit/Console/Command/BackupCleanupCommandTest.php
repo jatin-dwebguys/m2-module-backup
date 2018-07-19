@@ -5,7 +5,7 @@ namespace Itonomy\Backup\Test\Unit\Console\Command;
 use Itonomy\Backup\Console\Command\BackupCleanupCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class BackupCompressCommandTest extends \PHPUnit_Framework_TestCase
+class BackupCleanupCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var CheckActiveModulesCommand
