@@ -18,10 +18,7 @@ env:
 
 # We have decided to only test the latest two of each major releases.
   matrix:
-    - MAGENTO_VERSION=2.1.12
-    - MAGENTO_VERSION=2.1.13
-    - MAGENTO_VERSION=2.2.3
-    - MAGENTO_VERSION=2.2.4
+    - MAGENTO_VERSION=2.1.14
     - MAGENTO_VERSION=2.2.5
 
 matrix:
