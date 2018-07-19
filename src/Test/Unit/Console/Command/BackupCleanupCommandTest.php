@@ -2,10 +2,10 @@
 
 namespace Itonomy\Backup\Test\Unit\Console\Command;
 
+use Itonomy\Backup\Console\Command\BackupCleanupCommand;
 use Symfony\Component\Console\Tester\CommandTester;
-use Magento\CommandExample\Console\Command\CheckActiveModulesCommand;
 
-class CheckActiveModulesCommandTest extends \PHPUnit_Framework_TestCase
+class BackupCompressCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var CheckActiveModulesCommand
@@ -19,15 +19,11 @@ class CheckActiveModulesCommandTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->moduleList = $this->getMockForAbstractClass('Magento\Framework\Module\ModuleListInterface');
-        $this->command = new CheckActiveModulesCommand($this->moduleList);
+        $this->command = new BackupCleanupCommand();
     }
 
     public function testExecute()
     {
-        $command = $this->getFakeMock(ShippingOptions::class)->getMock();
-
-
         $this->moduleList->expects($this->once())->method('getNames')->willReturn([]);
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);

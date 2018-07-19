@@ -2,8 +2,8 @@
 
 namespace Itonomy\Backup\Test\Unit\Console\Command;
 
-use Itonomy\Backup\Console\Command\BackupCompressCommand;
 use Symfony\Component\Console\Tester\CommandTester;
+use Itonomy\Backup\Console\Command\BackupCompressCommand;
 
 class BackupCompressCommandTest extends \PHPUnit_Framework_TestCase
 {
