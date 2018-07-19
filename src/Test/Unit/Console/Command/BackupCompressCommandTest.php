@@ -2,24 +2,15 @@
 
 namespace Itonomy\Backup\Test\Unit\Console\Command;
 
+use Itonomy\Backup\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Itonomy\Backup\Console\Command\BackupCompressCommand;
 
-class BackupCompressCommandTest extends \PHPUnit_Framework_TestCase
+class BackupCompressCommandTest extends TestCase
 {
-    /**
-     * @var CheckActiveModulesCommand
-     */
-    private $command;
-
-    /**
-     * @var \Magento\Framework\Module\ModuleListInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private $moduleList;
-
     public function setUp()
     {
-        $this->command = new BackupCompressCommand();
+        $this->command = $this->getFakeMock(BackupCompressCommand::class)->disableOriginalConstructor()->getMock();
     }
 
     public function testExecute()

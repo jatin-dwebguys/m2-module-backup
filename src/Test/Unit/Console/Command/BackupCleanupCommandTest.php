@@ -2,24 +2,15 @@
 
 namespace Itonomy\Backup\Test\Unit\Console\Command;
 
-use Itonomy\Backup\Console\Command\BackupCleanupCommand;
+use Itonomy\Backup\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Itonomy\Backup\Console\Command\BackupCleanupCommand;
 
-class BackupCleanupCommandTest extends \PHPUnit_Framework_TestCase
+class BackupCleanupCommandTest extends TestCase
 {
-    /**
-     * @var CheckActiveModulesCommand
-     */
-    private $command;
-
-    /**
-     * @var \Magento\Framework\Module\ModuleListInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private $moduleList;
-
     public function setUp()
     {
-        $this->command = new BackupCleanupCommand();
+        $this->command = $this->getFakeMock(BackupCleanupCommand::class)->disableOriginalConstructor()->getMock();
     }
 
     public function testExecute()
