@@ -16,7 +16,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         exec: {
-            phpcs: phpcsCommand + '--standard=phpcs.xml  src/',
+            phpcs: phpcsCommand + '--standard=phpcs.xml --severity=10 src/',
             phpcsTest: phpcsCommand + '--standard=phpcs.test.xml --severity=10 src/Test',
 
             unitTests: 'cd ' + magento2path + ' && vendor/phpunit/phpunit/phpunit -c "' + phpunitXmlPath + '"',

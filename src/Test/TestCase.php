@@ -5,7 +5,7 @@ namespace Itonomy\Backup\Test;
 use Magento\Framework\Filesystem;
 use Magento\Framework\TestFramework\Unit\Helper\ObjectManager as ObjectManagerHelper;
 
-abstract class TestCase extends TestCaseFinder
+abstract class  TestCase extends TestCaseFinder
 {
     /**
      * @var null|string

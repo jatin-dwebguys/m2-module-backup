@@ -18,6 +18,6 @@ class BackupCleanupCommandTest extends TestCase
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);
 
-        $this->assertNotNull($commandTester->getStatusCode());
+        $this->assertNull($commandTester->getStatusCode());
     }
 }
