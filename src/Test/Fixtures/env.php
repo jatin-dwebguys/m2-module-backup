@@ -26,7 +26,7 @@ return array (
                             'host' => 'localhost',
                             'dbname' => 'magento',
                             'username' => 'root',
-                            'password' => 'root',
+                            'password' => '',
                             'active' => '1',
                         ),
                 ),
