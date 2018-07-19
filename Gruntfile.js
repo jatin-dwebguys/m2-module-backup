@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     var phpcsCommand = 'php -ddisplay_errors=1 vendor/bin/phpcs -p ' +
         '--runtime-set installed_paths ' +
         'vendor/squizlabs/php_codesniffer/CodeSniffer/Standards,' +
-        'vendor/magento/marketplace-eqp';
+        'vendor/magento/marketplace-eqp ';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
