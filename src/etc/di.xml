@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magento\Backup\Factory" type="Magento\Framework\Backup\Factory" />
+    <preference for="Magento\Framework\Backup\Factory" type="Itonomy\Backup\Factory" />
     <preference for="Magento\Backup\Model\Db" type="Itonomy\Backup\Model\Db" />
     <preference for="Magento\Backup\Model\Backup" type="Itonomy\Backup\Model\Backup" />
 
