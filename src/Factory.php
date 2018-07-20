@@ -7,7 +7,7 @@ class Factory extends \Magento\Framework\Backup\Factory
     /**
      * Backup type constant for database backup
      */
-    const TYPE_DB_COMPRESSED = 'db.gz';
+    const TYPE_DB_COMPRESSED = 'db';
 
     /**
      * Factory constructor.
