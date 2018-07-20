@@ -2,11 +2,11 @@
 
 namespace Itonomy\Backup\Model;
 
+use Itonomy\Backup\Factory;
 use Itonomy\Backup\Model\Backup;
 use Magento\Backend\App\Area\FrontNameResolver;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManagerFactory;
-use Magento\Framework\Backup\Factory;
 use Magento\Framework\Filesystem\Driver\File;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Setup\BackupRollback;
@@ -81,7 +81,7 @@ class BackupProcessor
                     // and filename contains the type of backup separated by '_'
                     $fileNameParts = explode('_', $nameWithoutExtension[0]);
 
-                    if (in_array(Factory::TYPE_DB, $fileNameParts)) {
+                    if (in_array(Factory::TYPE_COMPRESSED_DB, $fileNameParts)) {
                         $time=filemtime($backupsDir.'/'.$fileName);
                         $oldFiles[$fileName] = $time;
 
@@ -146,6 +146,7 @@ class BackupProcessor
 
                     if (in_array(Factory::TYPE_DB, $fileNameParts) && $nameWithoutExtension[1] !== '.sql.gz') {
                         $this->gzCompressFile($backupsDir.'/'.$fileName, 7);
+                        $this->getBackup()->load($fileName, $this->getBackupDirectory())->deleteFile();
                         $files[$fileName] = $backupsDir.'/'.$fileName.".gz";
                     }
                 }
