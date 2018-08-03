@@ -19,7 +19,6 @@ class Factory extends \Magento\Framework\Backup\Factory
 
         $this->_allowedTypes = [
             self::TYPE_DB,
-            self::TYPE_DB_COMPRESSED,
             self::TYPE_FILESYSTEM,
             self::TYPE_SYSTEM_SNAPSHOT,
             self::TYPE_MEDIA,

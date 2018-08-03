@@ -144,13 +144,23 @@ class BackupProcessor
                     // and filename contains the type of backup separated by '_'
                     $fileNameParts = explode('_', $nameWithoutExtension[0]);
 
-                    if (in_array(Factory::TYPE_DB, $fileNameParts) && $nameWithoutExtension[1] !== '.sql.gz') {
-                        $this->gzCompressFile($backupsDir.'/'.$fileName, 7);
-                        $this->getBackup()->load($fileName, $this->getBackupDirectory())->deleteFile();
-                        $files[$fileName] = $backupsDir.'/'.$fileName.".gz";
+                    if (in_array(Factory::TYPE_DB, $fileNameParts)
+                    && isset($nameWithoutExtension[2]) && $nameWithoutExtension[2] === 'gz'
+                    ) {
+                        echo "";
+                    } else {
+                        $gzFileName = $backupsDir.'/'.$fileName . ".gz";
+
+                        if (!is_file($gzFileName)) {
+                            $this->gzCompressFile($backupsDir . '/' . $fileName, 7);
+                            $files[$fileName] = $backupsDir . '/' . $fileName . ".gz";
+                        } else {
+                            $this->getBackup()->load($fileName, $this->getBackupDirectory())->deleteFile();
+                        }
                     }
                 }
             }
+
             if (empty($files)) {
                 $this->writeLog('<info>No backup files found.</info>', $output);
                 return;
