@@ -46,7 +46,7 @@ script:
   - if [ "$CODE_COVERAGE" = "false" ]; then php /tmp/magento2/bin/magento setup:di:compile; fi # Check for compilation errors
 
 after_success:
-  - bash scripts/AfterSuccess.sh
+  - bash scripts/reports.sh
 
 cache:
   directories:
